@@ -26,8 +26,10 @@ const removeCartItem = (cartItems, cartItemToRemove) => {
 		(cardItem) => cardItem.id == cartItemToRemove.id
 	);
 	// check if quantity is equal to 1, if it is remove that item
-	if(existingCartItem.quantity === 1) {
-		return cartItems.filter(cartItem => cartItem.id !== cartItemToRemove.id);
+	if (existingCartItem.quantity === 1) {
+		return cartItems.filter(
+			(cartItem) => cartItem.id !== cartItemToRemove.id
+		);
 	}
 
 	// return back cartiems with matching cart item with reduced quant
@@ -36,12 +38,11 @@ const removeCartItem = (cartItems, cartItemToRemove) => {
 			? { ...cartItem, quantity: cartItem.quantity - 1 }
 			: cartItem
 	);
-
-}
+};
 
 const clearCartItem = (cartItems, cartItemToClear) => {
-	return cartItems.filter(cartItem => cartItem.id !== cartItemToClear.id);
- }
+	return cartItems.filter((cartItem) => cartItem.id !== cartItemToClear.id);
+};
 // as the actual value you want to access
 export const CartContext = createContext({
 	isCartOpen: false,
@@ -49,9 +50,9 @@ export const CartContext = createContext({
 	cartItems: [],
 	addItemToCart: () => {},
 	removeItemFromCart: () => {},
-	clearItemFromCart: () => {},	
+	clearItemFromCart: () => {},
 	cartCount: 0,
-	cartTotal: 0
+	cartTotal: 0,
 });
 
 export const CartProvider = ({ children }) => {
@@ -60,16 +61,21 @@ export const CartProvider = ({ children }) => {
 	const [cartCount, setCartCount] = useState(0);
 	const [cartTotal, setCartTotal] = useState(0);
 
-	useEffect( () => {
-		const newCartCount = cartItems.reduce((total, cartItem) => total + cartItem.quantity, 0)
+	useEffect(() => {
+		const newCartCount = cartItems.reduce(
+			(total, cartItem) => total + cartItem.quantity,
+			0
+		);
 		setCartCount(newCartCount);
-	}, [cartItems])
+	}, [cartItems]);
 
-
-	useEffect( () => {
-		const newCartTotal = cartItems.reduce((total, cartItem) => total + cartItem.quantity * cartItem.price, 0)
+	useEffect(() => {
+		const newCartTotal = cartItems.reduce(
+			(total, cartItem) => total + cartItem.quantity * cartItem.price,
+			0
+		);
 		setCartTotal(newCartTotal);
-	}, [cartItems])
+	}, [cartItems]);
 
 	const addItemToCart = (productToAdd) => {
 		setCartItems(addCartItem(cartItems, productToAdd));
@@ -83,7 +89,16 @@ export const CartProvider = ({ children }) => {
 		setCartItems(clearCartItem(cartItems, cartItemToClear));
 	};
 
-	const value = { isCartOpen, setIsCartOpen, addItemToCart, removeItemToCart, clearItemFromCart, cartItems, cartCount, cartTotal };
+	const value = {
+		isCartOpen,
+		setIsCartOpen,
+		addItemToCart,
+		removeItemToCart,
+		clearItemFromCart,
+		cartItems,
+		cartCount,
+		cartTotal,
+	};
 
 	return (
 		<CartContext.Provider value={value}>{children}</CartContext.Provider>

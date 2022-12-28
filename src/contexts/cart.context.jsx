@@ -63,7 +63,7 @@ const CART_ACTION_TYPES = {
 }
 
 const INITIAL_STATE = {
-	isCartOpen: true,
+	isCartOpen: false,
 	cartItems: [],
 	cartCount: 0,
 	cartTotal: 0
@@ -137,7 +137,9 @@ const [{cartItems, isCartOpen, cartTotal, cartCount}, dispatch] = useReducer(car
 
 	const setIsCartOpen = (bool) => {
 		dispatch(createAction(CART_ACTION_TYPES.SET_IS_CART_OPEN, bool));
-	}
+	};
+
+
 
 	const value = {
 		isCartOpen,

@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import FormInput from "../form-input/form-input.component";
+import { UserContext } from '../../contexts/user.context';
 
 import Button from "../button/button.component";
 
@@ -40,7 +41,7 @@ const SignUpForm = () => {
 				email,
 				password
 			);
-
+			
 			await createUserDocumentFromAuth(
 				user,
 				{ displayName },

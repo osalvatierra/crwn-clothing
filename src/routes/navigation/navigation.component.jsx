@@ -22,6 +22,11 @@ const Navigation = () => {
   const currentUser =  useSelector(selectCurrentUser)
   const { isCartOpen } = useContext(CartContext);
 
+  const signOutHandler = async () => {
+    const res = await signOutUser();
+    console.log(res);
+  }
+
   return (
     <Fragment>
       <NavigationContainer>
@@ -32,7 +37,7 @@ const Navigation = () => {
           <NavLink to="/shop">SHOP</NavLink>
 
           {currentUser ? (
-            <NavLink as="span" onClick={signOutUser}>
+            <NavLink as="span" onClick={signOutHandler}>
               SIGN OUT
             </NavLink>
           ) : (
